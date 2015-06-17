@@ -1,0 +1,6 @@
+D:\GitHub\CSharpCources\Lesson_2\ModParam\ModParam - 2\bin\Debug\ModParam - 2.exe.config
+D:\GitHub\CSharpCources\Lesson_2\ModParam\ModParam - 2\bin\Debug\ModParam - 2.exe
+D:\GitHub\CSharpCources\Lesson_2\ModParam\ModParam - 2\bin\Debug\ModParam - 2.pdb
+D:\GitHub\CSharpCources\Lesson_2\ModParam\ModParam - 2\obj\Debug\ModParam - 2.csprojResolveAssemblyReference.cache
+D:\GitHub\CSharpCources\Lesson_2\ModParam\ModParam - 2\obj\Debug\ModParam - 2.exe
+D:\GitHub\CSharpCources\Lesson_2\ModParam\ModParam - 2\obj\Debug\ModParam - 2.pdb

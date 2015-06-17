@@ -1,0 +1,2 @@
+D:\GitHub\CSharpCources\Lesson_1\B\bin\Debug\B.exe.config
+D:\GitHub\CSharpCourses\Lesson_1\B\bin\Debug\B.exe.config

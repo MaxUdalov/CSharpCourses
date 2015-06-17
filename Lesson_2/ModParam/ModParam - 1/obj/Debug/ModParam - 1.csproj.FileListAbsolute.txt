@@ -1,0 +1,15 @@
+D:\GitHub\HomeWork\ModParam - 1\ModParam - 1\bin\Debug\ModParam - 1.exe.config
+D:\GitHub\HomeWork\ModParam - 1\ModParam - 1\obj\Debug\ModParam - 1.csprojResolveAssemblyReference.cache
+D:\GitHub\HomeWork\ModParam - 1\ModParam - 1\bin\Debug\ModParam - 1.exe
+D:\GitHub\HomeWork\ModParam - 1\ModParam - 1\bin\Debug\ModParam - 1.pdb
+D:\GitHub\HomeWork\ModParam - 1\ModParam - 1\obj\Debug\ModParam - 1.exe
+D:\GitHub\HomeWork\ModParam - 1\ModParam - 1\obj\Debug\ModParam - 1.pdb
+D:\GitHub\CSharpCources\Lesson_2\ModParam\ModParam - 1\bin\Debug\ModParam - 1.exe.config
+D:\GitHub\CSharpCources\Lesson_2\ModParam\ModParam - 1\obj\Debug\ModParam - 1.exe
+D:\GitHub\CSharpCources\Lesson_2\ModParam\ModParam - 1\obj\Debug\ModParam - 1.pdb
+D:\GitHub\CSharpCources\Lesson_2\ModParam\ModParam - 1\bin\Debug\ModParam - 1.exe
+D:\GitHub\CSharpCources\Lesson_2\ModParam\ModParam - 1\bin\Debug\ModParam - 1.pdb
+D:\GitHub\CSharpCources\Lesson_2\ModParam\ModParam - 1\obj\Debug\ModParam - 1.csprojResolveAssemblyReference.cache
+D:\GitHub\CSharpCourses\Lesson_2\ModParam\ModParam - 1\bin\Debug\ModParam - 1.exe.config
+D:\GitHub\CSharpCourses\Lesson_2\ModParam\ModParam - 1\obj\Debug\ModParam - 1.exe
+D:\GitHub\CSharpCourses\Lesson_2\ModParam\ModParam - 1\obj\Debug\ModParam - 1.pdb

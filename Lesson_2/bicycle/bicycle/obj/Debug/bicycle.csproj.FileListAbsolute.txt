@@ -1,0 +1,1 @@
+D:\GitHub\CSharpCourses\Lesson_2\bicycle\bicycle\bin\Debug\bicycle.exe.config

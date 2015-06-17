@@ -1,0 +1,5 @@
+D:\GitHub\CSharpCources\Lesson_1\H\bin\Debug\H.exe.config
+D:\GitHub\CSharpCources\Lesson_1\H\bin\Debug\H.exe
+D:\GitHub\CSharpCources\Lesson_1\H\bin\Debug\H.pdb
+D:\GitHub\CSharpCources\Lesson_1\H\obj\Debug\H.exe
+D:\GitHub\CSharpCources\Lesson_1\H\obj\Debug\H.pdb

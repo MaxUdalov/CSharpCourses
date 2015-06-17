@@ -1,0 +1,9 @@
+D:\GitHub\CSharpCources\Lesson_1\A\bin\Debug\A.exe.config
+D:\GitHub\CSharpCources\Lesson_1\A\bin\Debug\A.exe
+D:\GitHub\CSharpCources\Lesson_1\A\bin\Debug\A.pdb
+D:\GitHub\CSharpCources\Lesson_1\A\obj\Debug\A.csprojResolveAssemblyReference.cache
+D:\GitHub\CSharpCources\Lesson_1\A\obj\Debug\A.exe
+D:\GitHub\CSharpCources\Lesson_1\A\obj\Debug\A.pdb
+D:\GitHub\CSharpCourses\Lesson_1\A\bin\Debug\A.exe.config
+D:\GitHub\CSharpCourses\Lesson_1\A\obj\Debug\A.exe
+D:\GitHub\CSharpCourses\Lesson_1\A\obj\Debug\A.pdb
