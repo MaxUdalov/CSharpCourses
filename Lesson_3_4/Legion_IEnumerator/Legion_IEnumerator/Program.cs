@@ -30,7 +30,7 @@ namespace Legion_IEnumerator
                 {
                     case "Square": return new Square(this); 
                     case "Wedge": return new Wedge(this); 
-                    case "Rhmbus": return new Square(this); // сделать с yield return
+                    case "Rhombus": return new Square(this); // сделать с yield return
                     default: return (IEnumerator)GetEnumerator(); //никогда не попадаем
                 }
             }
