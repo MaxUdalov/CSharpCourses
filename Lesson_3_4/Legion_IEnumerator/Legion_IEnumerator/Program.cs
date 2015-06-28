@@ -45,17 +45,15 @@ namespace Legion_IEnumerator
                 {
                 
                     get
-                    {
- 
-                        Array.ConstrainedCopy(_l._legion, position+6, kare, 0, 6);
+                    {                      
+                        Array.ConstrainedCopy(_l._legion, position*6, kare, 0, 6);     
                         return kare;
                     }
                 }
-       
-
+ 
                 public bool MoveNext()
                 {
-                    position++;
+                    position+=1;
                     return (position < kare.Length);      
                 }
 
@@ -103,13 +101,12 @@ namespace Legion_IEnumerator
         {
             int[] FirstLegion = new int[36];
             for (int count = 0; count < FirstLegion.Length; count++)
-                FirstLegion[count] = 1;
+                FirstLegion[count] = count + 1;
             Legion legion = new Legion(FirstLegion)
             {
                 Formation = Legion.LegionFormation.Square
             };
             foreach (var s in legion)
-
                 Console.WriteLine(string.Join(" ",(s as int[])));
             
             Console.ReadLine();
