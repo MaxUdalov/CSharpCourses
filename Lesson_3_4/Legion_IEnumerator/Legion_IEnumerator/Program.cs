@@ -11,98 +11,92 @@ namespace Legion_IEnumerator
     {
         class Legion : IEnumerable
         {
-            private static string[] soldiers = new string[36];
-            
+            int[] _legion;
+            public Legion(int[] param)
+            {
+                _legion = param;
+            } //constructor
+
+            public enum LegionFormation
+            {
+                Square,
+                Wedge,
+                Rhombus
+            };
+            public LegionFormation Formation;
             public IEnumerator GetEnumerator()
             {
-                return soldiers.GetEnumerator();
-            }
-            internal class Square
-            {
-                public Square()
+                switch (Formation.ToString())
                 {
-                    for (int count = 0; count < soldiers.Length; count++)
-                        soldiers[count] = "SOLDIER";
-                }
-                public IEnumerator GetEnumerator()
-                {
-                    for(int count = 0; count < soldiers.Length; count++)
-                    {
-                        if (count % 6 == 0)
-                            yield return "\n";
-                        yield return soldiers[count];
-                    }
+                    case "Square": return new Square(this); 
+                    case "Wedge": return new Wedge(this); 
+                    case "Rhmbus": return new Square(this); // сделать с yield return
+                    default: return (IEnumerator)GetEnumerator(); //никогда не попадаем
                 }
             }
-            internal class Rhombus : IEnumerable
+            class Square : IEnumerator
             {
-                public Rhombus()
+                Legion _l;
+                int position = -1;
+                int[] kare = new int[6];
+                int index = 0;
+                public Square(Legion l) { _l = l; }
+
+                public object Current
                 {
-                    for (int count = 0; count < soldiers.Length; count++)
-                        soldiers[count] = "SOLDIER";
-                } 
-                 
-                IEnumerator IEnumerable.GetEnumerator()
+                
+                    get
+                    {
+ 
+                        Array.ConstrainedCopy(_l._legion, index, kare, 0, 6);
+                        index += 6;
+                        return kare[position];
+                    }
+                }
+       
+
+                public bool MoveNext()
                 {
-                    return (IEnumerator)GetEnumerator();
+                    position++;
+                    if (position < kare.Length)
+                        return true;
+                    else
+                        return false;
                 }
 
-                public RhombusEnum GetEnumerator()
+                public void Reset()
                 {
-                    return new RhombusEnum();
+                    position = -1;
                 }
-                public class RhombusEnum : IEnumerator
+            }
+            class Wedge : IEnumerator
+            {
+                Legion _l;
+                int position = -1;
+                public Wedge(Legion l) { _l = l; }
+
+                public object Current
                 {
-                    private int position = -1;
-                    int index = 2;
-                    int index1 = 5;
-                    int i = 1;
-                    public bool MoveNext()
-                    {                       
-                        position++;
-                        if (position == i & position <21)
-                        {                               
-                            i += index;
-                            index++;
-                            Console.WriteLine();                             
-                        }
-                        if (position == i & position >= 21)
-                        {
-                           
-                            i += index1;
-                            index1--;
-                            Console.WriteLine();
-                        }
-                        return (position < soldiers.Length);
-                    }
 
-                    public void Reset()
+                    get
                     {
-                        position = -1;
+                        return _l._legion[position];
                     }
+                }
 
-                    object IEnumerator.Current
-                    {
-                        get
-                        {
-                            return Current;
-                        }
-                    }
 
-                    public string Current
-                    {
-                        get
-                        {
-                            try
-                            {
-                                return soldiers[position];
-                            }
-                            catch (IndexOutOfRangeException)
-                            {
-                                throw new InvalidOperationException();
-                            }
-                        }
-                    }
+                public bool MoveNext()
+                {
+                    position++;
+                    if (position < _l._legion.Length)
+                        return true;
+                    else
+                        return false;
+                }
+
+                public void Reset()
+                {
+                    position = -1;
                 }
             }
         }
@@ -112,15 +106,15 @@ namespace Legion_IEnumerator
 
         static void Main(string[] args)
         {
-            //Legion.Square square = new Legion.Square();
-            //foreach (var soldiers in square)
-            //    Console.Write(soldiers + " ");
-
-            Legion.Rhombus rhombus = new Legion.Rhombus();
-            foreach (var soldiers in rhombus)
-                Console.Write("\t" + soldiers);
-       
-
+            int[] FirstLegion = new int[36];
+            for (int count = 0; count < FirstLegion.Length; count++)
+                FirstLegion[count] = 1;
+            Legion legion = new Legion(FirstLegion)
+            {
+                Formation = Legion.LegionFormation.Square
+            };
+            foreach (var s in legion)
+                Console.Write(" " + s);
 
             Console.ReadLine();
         }
