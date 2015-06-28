@@ -47,10 +47,10 @@ namespace Legion_IEnumerator
                 
                     get
                     {
+ 
                         Array.ConstrainedCopy(_l._legion, index, kare, 0, 6);
                         index += 6;
                         return string.Join(" ", kare);
-                        
                     }
                 }
        
@@ -114,7 +114,7 @@ namespace Legion_IEnumerator
                 Formation = Legion.LegionFormation.Square
             };
             foreach (var s in legion)
-                Console.WriteLine(" " + s);
+                Console.WriteLine(s);
 
             Console.ReadLine();
         }
