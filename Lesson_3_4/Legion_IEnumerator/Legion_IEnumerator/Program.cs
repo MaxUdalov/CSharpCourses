@@ -30,7 +30,7 @@ namespace Legion_IEnumerator
                 {
                     case "Square": return new Square(this); 
                     case "Wedge": return new Wedge(this); 
-                    case "Rhmbus": return new Square(this); // сделать с yield return
+                    case "Rhombus": return new Square(this); // сделать с yield return
                     default: return (IEnumerator)GetEnumerator(); //никогда не попадаем
                 }
             }
@@ -47,10 +47,10 @@ namespace Legion_IEnumerator
                 
                     get
                     {
- 
                         Array.ConstrainedCopy(_l._legion, index, kare, 0, 6);
                         index += 6;
-                        return kare[position];
+                        return string.Join(" ", kare);
+                        
                     }
                 }
        
@@ -114,7 +114,7 @@ namespace Legion_IEnumerator
                 Formation = Legion.LegionFormation.Square
             };
             foreach (var s in legion)
-                Console.Write(" " + s);
+                Console.WriteLine(" " + s);
 
             Console.ReadLine();
         }
