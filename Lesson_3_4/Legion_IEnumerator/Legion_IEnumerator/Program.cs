@@ -39,7 +39,6 @@ namespace Legion_IEnumerator
                 Legion _l;
                 int position = -1;
                 int[] kare = new int[6];
-                int index = 0;
                 public Square(Legion l) { _l = l; }
 
                 public object Current
@@ -48,9 +47,8 @@ namespace Legion_IEnumerator
                     get
                     {
  
-                        Array.ConstrainedCopy(_l._legion, index, kare, 0, 6);
-                        index += 6;
-                        return string.Join(" ", kare);
+                        Array.ConstrainedCopy(_l._legion, position+6, kare, 0, 6);
+                        return kare;
                     }
                 }
        
@@ -58,10 +56,7 @@ namespace Legion_IEnumerator
                 public bool MoveNext()
                 {
                     position++;
-                    if (position < kare.Length)
-                        return true;
-                    else
-                        return false;
+                    return (position < kare.Length);      
                 }
 
                 public void Reset()
@@ -114,8 +109,9 @@ namespace Legion_IEnumerator
                 Formation = Legion.LegionFormation.Square
             };
             foreach (var s in legion)
-                Console.WriteLine(s);
 
+                Console.WriteLine(string.Join(" ",(s as int[])));
+            
             Console.ReadLine();
         }
     }
