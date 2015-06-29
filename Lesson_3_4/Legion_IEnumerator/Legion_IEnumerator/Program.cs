@@ -7,95 +7,122 @@ using System.Threading.Tasks;
 
 namespace Legion_IEnumerator
 {
-    class Program
+    class Legion : IEnumerable
     {
-        class Legion : IEnumerable
+        int[] _legion;
+        public Legion(int[] param)
         {
-            int[] _legion;
-            public Legion(int[] param)
+            _legion = param;
+        } //constructor
+        public int[] GetLegion()
+        {
+            return _legion;
+        }
+        public enum LegionFormation
+        {
+            Square,
+            Wedge,
+            Rhombus
+        };
+        public LegionFormation Formation;
+        public IEnumerator GetEnumerator()
+        {
+            switch (Formation.ToString())
             {
-                _legion = param;
-            } //constructor
-
-            public enum LegionFormation
-            {
-                Square,
-                Wedge,
-                Rhombus
-            };
-            public LegionFormation Formation;
-            public IEnumerator GetEnumerator()
-            {
-                switch (Formation.ToString())
-                {
-                    case "Square": return new Square(this); 
-                    case "Wedge": return new Wedge(this); 
-                    case "Rhombus": return new Square(this); // сделать с yield return
-                    default: return (IEnumerator)GetEnumerator(); //никогда не попадаем
-                }
-            }
-            class Square : IEnumerator
-            {
-                Legion _l;
-                int position = -1;
-                int[] kare = new int[6];
-                public Square(Legion l) { _l = l; }
-
-                public object Current
-                {
-                
-                    get
-                    {                      
-                        Array.ConstrainedCopy(_l._legion, position*6, kare, 0, 6);     
-                        return kare;
-                    }
-                }
- 
-                public bool MoveNext()
-                {
-                    position+=1;
-                    return (position < kare.Length);      
-                }
-
-                public void Reset()
-                {
-                    position = -1;
-                }
-            }
-            class Wedge : IEnumerator
-            {
-                Legion _l;
-                int position = -1;
-                public Wedge(Legion l) { _l = l; }
-
-                public object Current
-                {
-
-                    get
-                    {
-                        return _l._legion[position];
-                    }
-                }
-
-
-                public bool MoveNext()
-                {
-                    position++;
-                    if (position < _l._legion.Length)
-                        return true;
-                    else
-                        return false;
-                }
-
-                public void Reset()
-                {
-                    position = -1;
-                }
+                case "Square": return new Square(this);
+                case "Wedge": return new Wedge(this);
+                case "Rhombus": return GetRhombusEnumerator(); // сделать с yield return
+                default: throw new NotImplementedException(); //никогда не попадаем
             }
         }
-    
+        public IEnumerator GetRhombusEnumerator()
+        {
+            int position = 0;
+            int length = 1;
+            for(int count = 0 ; count < 11 ; count++)
+            {
+                
+                if (position < 21)
+                { 
+                    int[] _m = new int[length];
+                    Array.ConstrainedCopy(_legion, position, _m, 0, length);
+                    length++;
+                    position += _m.Length;
+                    if (position == 21) length--;
+                    yield return _m;
+                }
+                else
+                {
+                    length--;
+                    int[] _m = new int[length];
+                    Array.ConstrainedCopy(_legion, position, _m, 0, length);
+                    position += _m.Length;
+                    yield return _m;
+                }
+                
+            }
+        }
+           
+        class Square : IEnumerator
+        {
+            Legion _l;
+            int position = -1;
+            public Square(Legion l) { _l = l; }
+            public object Current
+            {
 
-   
+                get
+                {
+                    int[] kare = new int[6];
+                    Array.ConstrainedCopy(_l._legion, position * 6, kare, 0, 6);
+                    return kare;
+                }
+            }
+
+            public bool MoveNext()
+            {
+                position += 1;
+                return (position < 6);
+            }
+
+            public void Reset()
+            {
+                position = -1;
+            }
+        }
+        class Wedge : IEnumerator
+        {
+            Legion _l;
+            int position = -1;
+            int index = 0;
+            public Wedge(Legion l) { _l = l; }
+
+            public object Current
+            {
+
+                get
+                {
+                    int[] _m = new int[position+1];                  
+                    Array.ConstrainedCopy(_l._legion, index, _m, 0, position + 1);
+                    index += _m.Length;
+                    return _m;
+                }
+            }
+
+            public bool MoveNext()
+            {
+                position++;
+                return (position < 8);
+            }
+
+            public void Reset()
+            {
+                position = -1;
+            }
+        }
+    }
+    class Program
+    { 
 
         static void Main(string[] args)
         {
@@ -104,12 +131,14 @@ namespace Legion_IEnumerator
                 FirstLegion[count] = count + 1;
             Legion legion = new Legion(FirstLegion)
             {
-                Formation = Legion.LegionFormation.Square
+                Formation = Legion.LegionFormation.Rhombus
             };
-            foreach (var s in legion)
-                Console.WriteLine(string.Join(" ",(s as int[])));
-            
+            foreach (var l in legion)
+            {
+                Console.WriteLine(string.Join(" ", l as int[]));
+            }
             Console.ReadLine();
+            
         }
     }
 }
