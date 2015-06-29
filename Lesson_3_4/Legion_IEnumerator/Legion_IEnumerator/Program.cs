@@ -27,11 +27,11 @@ namespace Legion_IEnumerator
         public LegionFormation Formation;
         public IEnumerator GetEnumerator()
         {
-            switch (Formation.ToString())
+            switch (Formation)
             {
-                case "Square": return new Square(this);
-                case "Wedge": return new Wedge(this);
-                case "Rhombus": return GetRhombusEnumerator(); // сделать с yield return
+                case LegionFormation.Square : return new Square(this);
+                case LegionFormation.Wedge : return new Wedge(this);
+                case LegionFormation.Rhombus : return GetRhombusEnumerator(); // сделать с yield return
                 default: throw new NotImplementedException(); //никогда не попадаем
             }
         }
@@ -42,16 +42,11 @@ namespace Legion_IEnumerator
             for(int count = 0 ; count < 11 ; count++)
             {
                 int[] _m = new int[length];
-                if (position < 21)
-                { 
-                    Array.ConstrainedCopy(_legion, position, _m, 0, length);
+                Array.ConstrainedCopy(_legion, position, _m, 0, length);
+                if (position < 21)          
                     length++;            
-                }
                 else
-                {
-                    Array.ConstrainedCopy(_legion, position, _m, 0, length);
                     length--;
-                }
                 position += _m.Length;
                 if (position == 21) length -= 2;
                 yield return _m;
@@ -67,11 +62,11 @@ namespace Legion_IEnumerator
             {
                 try
                 {
-                    switch (Formation.ToString())
+                    switch (Formation)
                     {
-                        case "Square": return _legion[(row - 1) * 6 + position - 1];
-                        case "Wedge": return _legion[row];
-                        case "Rhombus": return _legion[row];
+                        case LegionFormation.Square : return _legion[(row - 1) * 6 + position - 1];
+                        case LegionFormation.Wedge : return _legion[row];
+                        case LegionFormation.Rhombus : return _legion[row];
                         default: throw new NotImplementedException(); //никогда не попадаем
                     }
                 }
