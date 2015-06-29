@@ -62,11 +62,38 @@ namespace Legion_IEnumerator
                 
             }
         }
+        public int this[int index]
+        {
+            get { return _legion[index-1]; }
+        }
+        public int this[int row, int position]
+        {   
+            get 
+            {
+                try
+                {
+                    switch (Formation.ToString())
+                    {
+                        case "Square": return _legion[(row - 1) * 6 + position - 1];
+                        case "Wedge": return _legion[row];
+                        case "Rhombus": return _legion[row];
+                        default: throw new NotImplementedException(); //никогда не попадаем
+                    }
+                }
+                catch (IndexOutOfRangeException) { return -1; }
+            }
+        }
+ 
            
         class Square : IEnumerator
         {
             Legion _l;
             int position = -1;
+            int[][] _new = new int [6][];
+            public int[][] GetSquare()
+            {
+                return _new;
+            }
             public Square(Legion l) { _l = l; }
             public object Current
             {
@@ -131,12 +158,13 @@ namespace Legion_IEnumerator
                 FirstLegion[count] = count + 1;
             Legion legion = new Legion(FirstLegion)
             {
-                Formation = Legion.LegionFormation.Rhombus
+                Formation = Legion.LegionFormation.Square
             };
             foreach (var l in legion)
             {
                 Console.WriteLine(string.Join(" ", l as int[]));
             }
+            int k = legion[10, 2];
             Console.ReadLine();
             
         }
