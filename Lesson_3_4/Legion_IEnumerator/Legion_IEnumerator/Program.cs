@@ -41,25 +41,20 @@ namespace Legion_IEnumerator
             int length = 1;
             for(int count = 0 ; count < 11 ; count++)
             {
-                
+                int[] _m = new int[length];
                 if (position < 21)
                 { 
-                    int[] _m = new int[length];
                     Array.ConstrainedCopy(_legion, position, _m, 0, length);
-                    length++;
-                    position += _m.Length;
-                    if (position == 21) length--;
-                    yield return _m;
+                    length++;            
                 }
                 else
                 {
-                    length--;
-                    int[] _m = new int[length];
                     Array.ConstrainedCopy(_legion, position, _m, 0, length);
-                    position += _m.Length;
-                    yield return _m;
+                    length--;
                 }
-                
+                position += _m.Length;
+                if (position == 21) length -= 2;
+                yield return _m;
             }
         }
         public int this[int index]
@@ -158,7 +153,7 @@ namespace Legion_IEnumerator
                 FirstLegion[count] = count + 1;
             Legion legion = new Legion(FirstLegion)
             {
-                Formation = Legion.LegionFormation.Square
+                Formation = Legion.LegionFormation.Rhombus
             };
             foreach (var l in legion)
             {
