@@ -54,27 +54,67 @@ namespace Legion_IEnumerator
         }
         public int this[int index]
         {
-            get { return _legion[index-1]; }
+            get {
+                if (index > _legion.Length) return -1;
+                    return _legion[index-1]; 
+                }
         }
         public int this[int row, int position]
         {   
             get 
             {
-                try
-                {
+                
                     switch (Formation)
                     {
-                        case LegionFormation.Square : return _legion[(row - 1) * 6 + position - 1];
-                        case LegionFormation.Wedge : return _legion[row];
-                        case LegionFormation.Rhombus : return _legion[row];
+                        case LegionFormation.Square: if (row > 6 && position > 6) return -1;
+                                                     return _legion[(row - 1) * 6 + position - 1];
+                        case LegionFormation.Wedge: if (position > row && position > 8) return -1;
+                                                    int elements = 0;
+                                                    for (int i = 1; i < row ; i++)
+                                                        elements += i;
+                                                    return _legion[elements + position - 1];
+                        case LegionFormation.Rhombus: if(row > 11 && position > 6) return -1;
+                                                      elements = 0;
+                                                      int newrow = 1;
+                                                      int j = 1;
+                                                      while (newrow <= 6)
+                                                      {
+                                                          if (position > row) return -1;
+                                                          elements += newrow;
+                                                          newrow++;
+                                                      }
+                                                      if (row > 6)
+                                                      {
+                                                          int default_pos = 5;
+                                                          for (int i = 7; i < row; i++)
+                                                          {
+                                                              if (i > default_pos) return -1;
+                                                              elements += default_pos;
+                                                              default_pos--;
+                                                          }
+                                                      }
+                                                                                                        
+                                                      return _legion[elements + position - 1];
                         default: throw new NotImplementedException(); //никогда не попадаем
                     }
-                }
-                catch (IndexOutOfRangeException) { return -1; }
+                
             }
         }
- 
-           
+        public int this[string name]
+        {
+            get
+            {
+                int position;
+                if (!int.TryParse(name, out position))
+                    return -1;
+                else
+                {
+                    for (int i = 0; i < _legion.Length; i++)
+                        if (_legion[i] == position) return _legion[i];
+                }
+                return -1;
+            }
+        }
         class Square : IEnumerator
         {
             Legion _l;
@@ -154,7 +194,8 @@ namespace Legion_IEnumerator
             {
                 Console.WriteLine(string.Join(" ", l as int[]));
             }
-            int k = legion[10, 2];
+            int k = legion["37"];
+            Console.WriteLine(k);
             Console.ReadLine();
             
         }
