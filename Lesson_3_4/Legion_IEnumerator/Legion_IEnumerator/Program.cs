@@ -7,13 +7,32 @@ using System.Threading.Tasks;
 
 namespace Legion_IEnumerator
 {
+    class Solders
+    {
+        public readonly string[] first_name = { "Вася", "Петя", "Геракл", "Кузьма", "Володя", "Степан" };
+        public readonly string[] last_name = { "Тумбочка", "Сидоров", "Мужицкий", "Леший", "Крабов", "Вазовски" };
+        public static string[] name = new string[36];
+        private static int[] age = new int[36];
+       
+        public static void AddNames()
+        {
+            Random rnd = new Random();
+            Solders sld = new Solders();
+            for(int count = 0; count < 36; count++)
+            {
+               Solders.name[count] = sld.first_name[rnd.Next(0, 5)] +" "+ sld.last_name[rnd.Next(0, 5)];
+                Solders.age[count] = rnd.Next(18, 60);
+            }
+        }
+    }
     class Legion : IEnumerable
     {
-        int[] _legion;
+         int[] _legion;
         public Legion(int[] param)
         {
             _legion = param;
-        } //constructor
+            Solders.AddNames();
+        } //constructor     
         public int[] GetLegion()
         {
             return _legion;
@@ -76,7 +95,6 @@ namespace Legion_IEnumerator
                         case LegionFormation.Rhombus: if(row > 11 && position > 6) return -1;
                                                       elements = 0;
                                                       int newrow = 1;
-                                                      int j = 1;
                                                       while (newrow <= 6)
                                                       {
                                                           if (position > row) return -1;
@@ -102,16 +120,12 @@ namespace Legion_IEnumerator
         }
         public int this[string name]
         {
+            
             get
             {
-                int position;
-                if (!int.TryParse(name, out position))
-                    return -1;
-                else
-                {
-                    for (int i = 0; i < _legion.Length; i++)
-                        if (_legion[i] == position) return _legion[i];
-                }
+                
+                for (int i = 0; i < _legion.Length; i++)
+                        if (Solders.name[i] == name) return _legion[i];
                 return -1;
             }
         }
@@ -119,11 +133,6 @@ namespace Legion_IEnumerator
         {
             Legion _l;
             int position = -1;
-            int[][] _new = new int [6][];
-            public int[][] GetSquare()
-            {
-                return _new;
-            }
             public Square(Legion l) { _l = l; }
             public object Current
             {
@@ -184,18 +193,19 @@ namespace Legion_IEnumerator
         static void Main(string[] args)
         {
             int[] FirstLegion = new int[36];
+
             for (int count = 0; count < FirstLegion.Length; count++)
                 FirstLegion[count] = count + 1;
             Legion legion = new Legion(FirstLegion)
             {
                 Formation = Legion.LegionFormation.Rhombus
             };
+           
             foreach (var l in legion)
             {
                 Console.WriteLine(string.Join(" ", l as int[]));
             }
-            int k = legion["37"];
-            Console.WriteLine(k);
+            Console.WriteLine(legion["Вася Тумбочка"]);
             Console.ReadLine();
             
         }
