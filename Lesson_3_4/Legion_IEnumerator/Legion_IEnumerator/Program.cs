@@ -9,25 +9,21 @@ namespace Legion_IEnumerator
 {
     class Solders
     {
-        public static readonly string[] first_name = { "Вася", "Петя", "Геракл", "Кузьма", "Володя", "Степан" };
-        public static readonly string[] last_name = { "Тумбочка", "Сидоров", "Мужицкий", "Леший", "Крабов", "Вазовски" };
-        static Solders()
-        {
-            Random rnd = new Random();
-            Solders.Name = Solders.first_name[rnd.Next(0, 6)] + " " + Solders.last_name[rnd.Next(0, 6)];
-            Age = rnd.Next(18, 60);
-        }
-        public static string Name { get; set; }
-        public static int Age { get; set; }
+        public readonly string[] first_name = { "Вася", "Петя", "Геракл", "Кузьма", "Володя", "Степан" };
+        public readonly string[] last_name = { "Тумбочка", "Сидоров", "Мужицкий", "Леший", "Крабов", "Вазовски" };
+
+        public string Name { get; set; }
+        public int Age { get; set; }
     }
     class Legion : IEnumerable
     {
-         Solders[] _legion;
+        Solders[] _legion;
         public Legion(Solders[] param)
         {
-            _legion = param;
+    
+            _legion = param as Solders[];
+            
         } //constructor     
-
         public Solders[] GetLegion()
         {
             return _legion;
@@ -187,12 +183,7 @@ namespace Legion_IEnumerator
 
         static void Main(string[] args)
         {
-            int[] FirstLegion = new int[36];
-
-            for (int count = 0; count < FirstLegion.Length; count++)
-                FirstLegion[count] = count + 1;
-            
-            Legion legion = new Legion(new Solders);
+            Legion legion = new Legion()
             {
                 Formation = Legion.LegionFormation.Rhombus
             };
