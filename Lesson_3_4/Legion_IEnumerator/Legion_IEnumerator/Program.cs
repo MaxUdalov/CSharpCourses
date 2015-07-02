@@ -9,31 +9,26 @@ namespace Legion_IEnumerator
 {
     class Solders
     {
-        public readonly string[] first_name = { "Вася", "Петя", "Геракл", "Кузьма", "Володя", "Степан" };
-        public readonly string[] last_name = { "Тумбочка", "Сидоров", "Мужицкий", "Леший", "Крабов", "Вазовски" };
-        public static string[] name = new string[36];
-        private static int[] age = new int[36];
-       
-        public static void AddNames()
+        public static readonly string[] first_name = { "Вася", "Петя", "Геракл", "Кузьма", "Володя", "Степан" };
+        public static readonly string[] last_name = { "Тумбочка", "Сидоров", "Мужицкий", "Леший", "Крабов", "Вазовски" };
+        static Solders()
         {
             Random rnd = new Random();
-            Solders sld = new Solders();
-            for(int count = 0; count < 36; count++)
-            {
-               Solders.name[count] = sld.first_name[rnd.Next(0, 5)] +" "+ sld.last_name[rnd.Next(0, 5)];
-                Solders.age[count] = rnd.Next(18, 60);
-            }
+            Solders.Name = Solders.first_name[rnd.Next(0, 6)] + " " + Solders.last_name[rnd.Next(0, 6)];
+            Age = rnd.Next(18, 60);
         }
+        public static string Name { get; set; }
+        public static int Age { get; set; }
     }
     class Legion : IEnumerable
     {
-         int[] _legion;
-        public Legion(int[] param)
+         Solders[] _legion;
+        public Legion(Solders[] param)
         {
             _legion = param;
-            Solders.AddNames();
         } //constructor     
-        public int[] GetLegion()
+
+        public Solders[] GetLegion()
         {
             return _legion;
         }
@@ -71,33 +66,33 @@ namespace Legion_IEnumerator
                 yield return _m;
             }
         }
-        public int this[int index]
+        public Solders this[int index]
         {
             get {
-                if (index > _legion.Length) return -1;
+                if (index > _legion.Length) throw new IndexOutOfRangeException();
                     return _legion[index-1]; 
                 }
         }
-        public int this[int row, int position]
+        public Solders this[int row, int position]
         {   
             get 
             {
                 
                     switch (Formation)
                     {
-                        case LegionFormation.Square: if (row > 6 && position > 6) return -1;
+                        case LegionFormation.Square: if (row > 6 && position > 6) throw new IndexOutOfRangeException();
                                                      return _legion[(row - 1) * 6 + position - 1];
-                        case LegionFormation.Wedge: if (position > row && position > 8) return -1;
+                        case LegionFormation.Wedge: if (position > row && position > 8) throw new IndexOutOfRangeException();
                                                     int elements = 0;
                                                     for (int i = 1; i < row ; i++)
                                                         elements += i;
                                                     return _legion[elements + position - 1];
-                        case LegionFormation.Rhombus: if(row > 11 && position > 6) return -1;
+                        case LegionFormation.Rhombus: if (row > 11 && position > 6) throw new IndexOutOfRangeException();
                                                       elements = 0;
                                                       int newrow = 1;
                                                       while (newrow <= 6)
                                                       {
-                                                          if (position > row) return -1;
+                                                          if (position > row) throw new IndexOutOfRangeException();
                                                           elements += newrow;
                                                           newrow++;
                                                       }
@@ -106,7 +101,7 @@ namespace Legion_IEnumerator
                                                           int default_pos = 5;
                                                           for (int i = 7; i < row; i++)
                                                           {
-                                                              if (i > default_pos) return -1;
+                                                              if (i > default_pos) throw new IndexOutOfRangeException();
                                                               elements += default_pos;
                                                               default_pos--;
                                                           }
@@ -118,15 +113,15 @@ namespace Legion_IEnumerator
                 
             }
         }
-        public int this[string name]
+        public Solders this[string name]
         {
             
             get
             {
                 
                 for (int i = 0; i < _legion.Length; i++)
-                        if (Solders.name[i] == name) return _legion[i];
-                return -1;
+                        if (_legion[i].Name == name) return _legion[i];
+                throw  new IndexOutOfRangeException();
             }
         }
         class Square : IEnumerator
@@ -196,7 +191,8 @@ namespace Legion_IEnumerator
 
             for (int count = 0; count < FirstLegion.Length; count++)
                 FirstLegion[count] = count + 1;
-            Legion legion = new Legion(FirstLegion)
+            
+            Legion legion = new Legion(new Solders);
             {
                 Formation = Legion.LegionFormation.Rhombus
             };
