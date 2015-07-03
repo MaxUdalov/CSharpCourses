@@ -11,7 +11,18 @@ namespace Legion_IEnumerator
     {
         public readonly string[] first_name = { "Вася", "Петя", "Геракл", "Кузьма", "Володя", "Степан" };
         public readonly string[] last_name = { "Тумбочка", "Сидоров", "Мужицкий", "Леший", "Крабов", "Вазовски" };
+        public Solders[] AddSoldiers()
+        {
+            Random rnd = new Random();
+            Solders[] sld = new Solders[36];
+            for (int count = 0; count < 36; count++)
+            {
 
+                sld[count].Name = sld[0].first_name[rnd.Next(0, 6)] + " " + sld[0].last_name[rnd.Next(0, 6)];
+                sld[count].Age = rnd.Next(18, 60);
+            }
+            return sld;
+        }
         public string Name { get; set; }
         public int Age { get; set; }
     }
@@ -20,8 +31,8 @@ namespace Legion_IEnumerator
         Solders[] _legion;
         public Legion(Solders[] param)
         {
-    
-            _legion = param as Solders[];
+
+            _legion = param;
             
         } //constructor     
         public Solders[] GetLegion()
@@ -183,7 +194,10 @@ namespace Legion_IEnumerator
 
         static void Main(string[] args)
         {
-            Legion legion = new Legion()
+
+            Solders sld = new Solders();
+           
+            Legion legion = new Legion(sld.AddSoldiers())
             {
                 Formation = Legion.LegionFormation.Rhombus
             };
