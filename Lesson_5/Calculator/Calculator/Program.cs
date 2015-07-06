@@ -37,7 +37,7 @@ namespace Calculator
         private static bool NextOperation()
         {
             string newoperation;
-            Console.Write("You want to perform another operation? (yes/no)");
+            Console.Write("Do you want to perform another operation? (yes/no)");
             newoperation = Console.ReadLine();
             return (newoperation == "yes" || newoperation == "YES");
         }
@@ -49,7 +49,7 @@ namespace Calculator
                 case 2: return x - y;
                 case 3: return x * y;
                 case 4: if (y == 0) throw new DivideByZeroException(); return x / y;
-                default: Console.WriteLine("This operation is not found!!!"); return 0;
+                default: Console.WriteLine("This operation did not find!!!"); return 0;
             }
         }
         public void CalculatorRun()
