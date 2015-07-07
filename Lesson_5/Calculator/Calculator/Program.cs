@@ -7,7 +7,7 @@ using System.IO;
 
 namespace Calculator
 {
-    public delegate void CalcDelegate();
+    public delegate void CalcDelegate(double answer);
     public class Calculator
     {
         double answer;
@@ -59,39 +59,30 @@ namespace Calculator
                 try
                 {
                     answer = PerformOperation(InputDate(), InputDate(), InputOperation());
-                    CalcEvent.Invoke();
+                    CalcEvent.Invoke(answer);
                 }
                 catch (DivideByZeroException e) { Console.WriteLine(e.Message); }
                 catch (Exception) { Console.WriteLine("incorrect information!!!"); }
                 if (!NextOperation())
                     break;
+                Console.Clear();
             }
         }
         public event CalcDelegate CalcEvent;      
     }
     public class ObsConsole 
     {
-        Calculator calc;
-        public ObsConsole(Calculator calc)
+        public static void Event(double answer)
         {
-            this.calc = calc;
-        }      
-        public void Event()
-        {
-            Console.WriteLine("Answer = {0}", calc.Answer );
+            Console.WriteLine("Answer = {0}", answer );
         }
     }
     public class ObsFile 
     {
-        Calculator calc;
-        public ObsFile(Calculator calc)
-        {
-            this.calc = calc;
-        }
-        public void Event()
+        public static void Event(double answer)
         {
             StreamWriter sw = new StreamWriter("result.txt");
-            sw.Write(calc.Answer);
+            sw.Write(answer);
             sw.Close();
         }
     }
@@ -101,10 +92,8 @@ namespace Calculator
         static void Main(string[] args)
         {
             Calculator calc = new Calculator();
-            ObsConsole obsC = new ObsConsole(calc);
-            ObsFile obsF = new ObsFile(calc);
-            calc.CalcEvent += obsC.Event;
-            calc.CalcEvent += obsF.Event;
+            calc.CalcEvent += ObsConsole.Event;
+            calc.CalcEvent += ObsFile.Event;
             calc.CalculatorRun();
         }
     }
