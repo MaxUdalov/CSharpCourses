@@ -10,18 +10,13 @@ namespace Calculator
     public delegate void CalcDelegate(double answer);
     public class Calculator
     {
-        double answer;
-        public double Answer
-        {
-            get { return answer; }
-        }
+        public double answer { set; get; }
 
         private static double InputDate()
         {
-            string s;
             double number = 0;
             Console.Write("Input number : ");
-            s = Console.ReadLine();
+            string s = Console.ReadLine();
             if (double.TryParse(s, out number)) return number;
             throw new InvalidCastException();
         }
