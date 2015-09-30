@@ -1,0 +1,6 @@
+F:\Study\GitHub\Testing\ISDApple\ISDApple\bin\Debug\ISDApple.exe.config
+F:\Study\GitHub\Testing\ISDApple\ISDApple\obj\Debug\ISDApple.csprojResolveAssemblyReference.cache
+F:\Study\GitHub\Testing\ISDApple\ISDApple\bin\Debug\ISDApple.exe
+F:\Study\GitHub\Testing\ISDApple\ISDApple\bin\Debug\ISDApple.pdb
+F:\Study\GitHub\Testing\ISDApple\ISDApple\obj\Debug\ISDApple.exe
+F:\Study\GitHub\Testing\ISDApple\ISDApple\obj\Debug\ISDApple.pdb
